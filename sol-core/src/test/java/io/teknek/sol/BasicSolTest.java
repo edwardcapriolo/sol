@@ -1,5 +1,7 @@
 package io.teknek.sol;
 
+import io.teknek.sol.model.Equals;
+import io.teknek.sol.model.Literal;
 import org.junit.jupiter.api.Test;
 
 import java.util.function.Function;

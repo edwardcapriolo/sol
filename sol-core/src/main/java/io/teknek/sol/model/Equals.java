@@ -1,4 +1,4 @@
-package io.teknek.sol;
+package io.teknek.sol.model;
 
 public class Equals implements Fx<Boolean> {
     private final Fx left;

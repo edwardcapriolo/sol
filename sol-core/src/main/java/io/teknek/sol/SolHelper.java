@@ -1,5 +1,10 @@
 package io.teknek.sol;
 
+import io.teknek.sol.model.Equals;
+import io.teknek.sol.model.Field;
+import io.teknek.sol.model.Fx;
+import io.teknek.sol.model.Literal;
+
 public class SolHelper {
     public static Fx lit(Object o){
         return new Literal(o);

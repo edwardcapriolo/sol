@@ -1,4 +1,4 @@
-package io.teknek.sol;
+package io.teknek.sol.model;
 
 public class Field implements Fx {
     private final String name;

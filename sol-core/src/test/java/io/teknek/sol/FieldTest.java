@@ -1,5 +1,6 @@
 package io.teknek.sol;
 
+import io.teknek.sol.model.Fx;
 import org.junit.jupiter.api.Test;
 
 import java.util.function.Function;

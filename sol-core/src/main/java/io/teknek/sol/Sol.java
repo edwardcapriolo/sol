@@ -1,5 +1,10 @@
 package io.teknek.sol;
 
+import io.teknek.sol.model.Equals;
+import io.teknek.sol.model.Field;
+import io.teknek.sol.model.Fx;
+import io.teknek.sol.model.Literal;
+
 import java.util.function.Function;
 
 public class Sol {
