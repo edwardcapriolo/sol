@@ -25,8 +25,9 @@ public class FieldTest {
         //use it
         assertTrue(isNameSaraFunction.apply(new SomePojo()));
         //one liner more sexy
+
         assertFalse(sol.compile(
-                equal(field("username"), lit("sara"))
-            ).apply("bob"));
+                equal(field("username"), lit("bob"))
+            ).apply(new SomePojo()));
     }
 }
