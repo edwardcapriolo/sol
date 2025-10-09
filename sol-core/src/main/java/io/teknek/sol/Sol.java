@@ -3,11 +3,20 @@ package io.teknek.sol;
 import io.teknek.sol.model.*;
 
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class Sol {
     public Sol(){
 
     }
+
+
+    public <R> Supplier<R> compileAsSupplier(Fx<R> fx){
+        //not efficient but more charming to the caller
+        Function<Object, R> z = compile(fx);
+        return () -> z.apply(null);
+    }
+
     public <T,R> Function<T,R> compile(Fx<R> fx){
         switch (fx){
             case Literal l: return (T _) ->  (R) l.getLit();
@@ -20,9 +29,17 @@ public class Sol {
             case Stringify s: {
                 return (Function<T, R>) compileStringify(s);
             }
+            case IsNull isNull: {
+                return (Function<T, R>) compileIsNull(isNull);
+            }
             default:
                 throw new IllegalStateException("Unexpected value: " + fx);
         }
+    }
+
+    private <T, R> Function<T,Boolean> compileIsNull(IsNull isNull) {
+        Function<T,R> inner = compile(isNull.getInner());
+        return (T input) -> inner.apply(input) == null;
     }
 
     private <T, R> Function<T,String> compileStringify(Stringify s) {

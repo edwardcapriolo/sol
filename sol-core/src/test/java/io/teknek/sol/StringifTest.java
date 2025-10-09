@@ -26,4 +26,9 @@ public class StringifTest {
         }
 
     }
+
+    @Test
+    void supplierTest(){
+        assertFalse(sol.compileAsSupplier(equal(lit("5"), lit(5L))).get());
+    }
 }
