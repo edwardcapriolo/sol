@@ -1,6 +1,8 @@
 package io.teknek.sol;
 
 import io.teknek.sol.model.Fx;
+import io.teknek.sol.testclasses.SomeOtherPojo;
+import io.teknek.sol.testclasses.SomePojo;
 import org.junit.jupiter.api.Test;
 
 import java.util.function.Function;
@@ -10,10 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FieldTest {
-
-    class SomePojo{
-        public String username = "sara";
-    }
 
     Sol sol = new Sol();
     @Test
@@ -29,5 +27,16 @@ public class FieldTest {
         assertFalse(sol.compile(
                 equal(field("username"), lit("bob"))
             ).apply(new SomePojo()));
+    }
+
+    @Test
+    void nestedFields(){
+        //This is the network serializable function
+        Fx<Boolean> isNameSara = equal(field( "somePojo", field("username")), lit("sara"));
+        //compile it
+        Function<SomeOtherPojo,Boolean> isNameSaraFunction = sol.compile(isNameSara);
+        //use it
+        assertTrue(isNameSaraFunction.apply(new SomeOtherPojo(this)));
+
     }
 }

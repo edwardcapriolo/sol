@@ -1,9 +1,6 @@
 package io.teknek.sol;
 
-import io.teknek.sol.model.Equals;
-import io.teknek.sol.model.Field;
-import io.teknek.sol.model.Fx;
-import io.teknek.sol.model.Literal;
+import io.teknek.sol.model.*;
 
 public class SolHelper {
     public static Fx lit(Object o){
@@ -17,4 +14,13 @@ public class SolHelper {
     public static Field field(String name){
         return new Field(name);
     }
+
+    public static Field field(String name, Field next){
+        return new Field(name, next);
+    }
+
+    public static Stringify stringify(Fx inner){
+        return new Stringify(inner);
+    }
+
 }
