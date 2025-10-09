@@ -32,17 +32,32 @@ public class Sol {
             case IsNull isNull: {
                 return (Function<T, R>) compileIsNull(isNull);
             }
+            case Try<R> t: {
+                return compileTry(t);
+            }
             default:
                 throw new IllegalStateException("Unexpected value: " + fx);
         }
     }
 
-    private <T, R> Function<T,Boolean> compileIsNull(IsNull isNull) {
+    protected <T, R> Function<T,R> compileTry(Try<R> t) {
+        Function<T,R> inner = compile(t.getInner());
+        return (T input) -> {
+           try {
+               return inner.apply(input);
+           } catch (RuntimeException e){
+               return null;
+           }
+        };
+
+    }
+
+    protected <T, R> Function<T,Boolean> compileIsNull(IsNull isNull) {
         Function<T,R> inner = compile(isNull.getInner());
         return (T input) -> inner.apply(input) == null;
     }
 
-    private <T, R> Function<T,String> compileStringify(Stringify s) {
+    protected <T, R> Function<T,String> compileStringify(Stringify s) {
         Function<T,R> inner = compile(s.getInner());
         return (T input) -> inner.apply(input).toString();
     }

@@ -23,4 +23,8 @@ public class SolHelper {
         return new Stringify(inner);
     }
 
+    public static <T> Try<T> wrapWithTry(Fx<T> inner){
+        return new Try<>(inner);
+    }
+
 }
